@@ -1,10 +1,7 @@
 /*
 This file is part of LICO, a fast lossless image compressor.
 
-BSD 3-Clause License
-
 Copyright (c) 2023, Noushin Azami and Martin Burtscher
-All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
@@ -32,6 +29,9 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 URL: The latest version of this code is available at https://github.com/burtscher/LICO.
+
+Publication: This work is described in detail in the following paper.
+Noushin Azami, Rain Lawson, and Martin Burtscher. "LICO: An Effective, High-Speed, Lossless Compressor for Images." Proceedings of the 2024 Data Compression Conference. Snowbird, UT. March 2024.
 
 Sponsor: This code is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Research (ASCR), under contract DE-SC0022223.
 */
@@ -89,8 +89,6 @@ static inline void h_BMP_BIT(int& size, byte*& data)
     if ((data[0] != 'B') || (data[1] != 'M') || (h_BMP_BIT_get4(&data[2]) != 54 + h * width) || (h_BMP_BIT_get4(&data[10]) != 54) || (h_BMP_BIT_get4(&data[14]) != 40) || (h_BMP_BIT_get2(&data[26]) != 1) || (h_BMP_BIT_get2(&data[28]) != 24) || (h_BMP_BIT_get4(&data[30]) != 0) || (h_BMP_BIT_get4(&data[34]) != h * width) || (h_BMP_BIT_get4(&data[46]) != 0) || (h_BMP_BIT_get4(&data[50]) != 0) || (size != 54 + h * width) || (w < 1) || (h < 1)) {
       printf("h_BMP_BIT: WARNING: not a supported BMP format\n");
     } else {
-      //printf("h_BMP_BIT: %d by %d BMP (%d pixels)\n", w, h, w * h);
-
       data[0] = data[0] - 'B';  // B
       data[1] = data[1] - 'M';  // M
       h_BMP_BIT_set4(&data[2], h_BMP_BIT_get4(&data[2]) - (h * width + 54));  // size in bytes
